@@ -4,19 +4,17 @@
 
 @section('content')
 
-
-
-
 <div class="panel panel-primary">
     <div class="card">
         <div class="card-header">                
             <h1>Nome da aplicação</h1>
             <form>
+                @csrf
                 <div class="form-group">
                     <label for="selectFile">Selecione o arquivo XML</label>
                     <input type="file" class="form-control-file" id="selectFile">
                 </div>
-                <input type="submit" value="importar" http="{{route('xml.read')}}">
+                <input type="submit" value="importar" http="{{route('fan.store')}}">
             </form>
         </div>
 
@@ -26,6 +24,7 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Documento</th>
                     <th scope="col">CEP</th>
+                    <th scope="col">Endereço</th>
                     <th scope="col">Bairro</th>
                     <th scope="col">Cidade</th>
                     <th scope="col">UF</th>
@@ -41,6 +40,7 @@
                     <td>{{$dado->nome}}</td>
                     <td>{{$dado->cpf}}</td>
                     <td>{{$dado->cep}}</td>
+                    <td>{{$dado->endereco}}</td>
                     <td>{{$dado->bairro}}</td>
                     <td>{{$dado->cidade}}</td>
                     <td>{{$dado->uf}}</td>

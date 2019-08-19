@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Fan;
 use Illuminate\Http\Request;
 
+function convertCheckboxValue($dado){
+    if(isset($dado['ativo']) && $dado['ativo'] == 'on'){
+        $dado['ativo'] = '1';
+    }else{
+        $dado['ativo'] = '0';
+    }
+    return $dado;
+}
+
  function xmlToArray(){
     $path = "https://raw.githubusercontent.com/p21sistemas/skeleton21/master/clientes.xml";
     $xml = simplexml_load_file($path);
@@ -60,13 +69,15 @@ class FanController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all();
+        $dado = $request->all();
+        $dados = convertCheckboxValue($dado);
+        
         if($dados){
-            Fan::create($dados);
+            Fan::create($dados); //cadastra um torcedor a partir do formulário
         }else{
             $allFans = xmlToArray(); 
             foreach($allFans as $fans){
-                Fan::create($fans);
+                Fan::create($fans); //cadastrar torcedores a partir do arquivo XML
             }
         }
        
@@ -81,19 +92,19 @@ class FanController extends Controller
 
     public function edit($id = null)
     {
-        if($id){
+        if(isset($id)){
             $dados = Fan::find($id);
+            return view('editar', compact('dados'));
         }else{
-            
+            return view('cadastrar');
         }
-        
-        return view('form', compact('dados'));
     }
 
   
     public function update(Request $request, $id)
     {
-        $dados = $request->all();
+        $dado = $request->all();
+        $dados = convertCheckboxValue($dado);
         Fan::find($id)->update($dados);
         return redirect()->route('index');
     }

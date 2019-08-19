@@ -14,9 +14,10 @@
 use App\Http\Middleware\ConvertXmlToArray;
 
 Route::get('/index', 'FanController@index')->name('index');
-Route::get('/fan', 'FanController@store')->name('fan.store');
 
-Route::get('/form/{id?}', 'FanController@edit')->name('fan.form');
+Route::post('/fan', 'FanController@store')->name('fan.store');
+
+Route::get('/formulario/{id?}', 'FanController@edit')->name('fan.formulario');
 
 Route::get('/update/{id}', 'FanController@update')->name('fan.update');
 //Route::post('/form', 'FanController@store')->name('fan.newFan');
