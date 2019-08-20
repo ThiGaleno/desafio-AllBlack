@@ -8,13 +8,13 @@
     <div class="card">
         <div class="card-header">                
             <h1>Nome da aplicação</h1>
-            <form>
+            <form method="POST" enctype="multipart/form-data" action="{{ route('fan.extract') }}">
                 @csrf
                 <div class="form-group">
                     <label for="selectFile">Selecione o arquivo XML</label>
-                    <input type="file" class="form-control-file" id="selectFile">
+                    <input type="file" name ="file" class="form-control-file" id="selectFile">
                 </div>
-                <input type="submit" value="importar" http="{{route('fan.store')}}">
+                <input type="submit" value="importar">
             </form>
         </div>
 
@@ -48,8 +48,8 @@
                     <td>{{$dado->email}}</td>
                     <td>{{$dado->ativo}}</td>
                     <td>
-                        <a class="btn  btn-light text-dark">E</a>
-                        <a class="btn  btn-danger text-light">X</a>
+                        <a class="btn  btn-light text-dark" href="{{ route('fan.formulario',$dado->id) }}">E</a>
+                        <a class="btn  btn-danger text-light" href="{{ route('fan.delete',$dado->id) }}">X</a>
                     </td>
                     
                 </tr>

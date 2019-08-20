@@ -14,8 +14,8 @@ function convertCheckboxValue($dado){
     return $dado;
 }
 
- function xmlToArray(){
-    $path = "https://raw.githubusercontent.com/p21sistemas/skeleton21/master/clientes.xml";
+ function xmlToArray($path){
+    //$path = "https://raw.githubusercontent.com/p21sistemas/skeleton21/master/clientes.xml";
     $xml = simplexml_load_file($path);
 
     //for pra varrer o XML e trata-lo
@@ -34,61 +34,26 @@ function convertCheckboxValue($dado){
         $allFans[$i] = $dados;
     }
     return $allFans;
-    
-    
 }
 
 class FanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $dados = Fan::all();
         return view('index', compact('dados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $dado = $request->all();
         $dados = convertCheckboxValue($dado);
-        
-        if($dados){
-            Fan::create($dados); //cadastra um torcedor a partir do formulário
-        }else{
-            $allFans = xmlToArray(); 
-            foreach($allFans as $fans){
-                Fan::create($fans); //cadastrar torcedores a partir do arquivo XML
-            }
-        }
-       
-        $dados = Fan::all();
+        Fan::create($dados);
         return redirect()->route('index');
     }
 
-    public function show($id)
-    {
-        //
-    }
 
     public function edit($id = null)
     {
@@ -112,8 +77,22 @@ class FanController extends Controller
    
     public function destroy($id)
     {
-        //
+        Fan::destroy($id);
+        return redirect()->route('index');
     }
 
-    
+    public function extract(Request $request){
+        $file = $request->file('file');
+        $name = "lastUpdateFile.xml";
+        $url = "files/";
+        $file->move($url, $name);
+        $path = $url . $name;
+
+        $allFans = xmlToArray($path); 
+            foreach($allFans as $fans){
+                Fan::create($fans);
+            }
+            return redirect()->route('index');
+    }
+
 }
