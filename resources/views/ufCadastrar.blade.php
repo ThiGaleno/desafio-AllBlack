@@ -1,5 +1,5 @@
 
-	<option>Selecionar</option>
+	<option value="">Selecionar</option>
 	<option value="AC">Acre</option>
 	<option value="AL">Alagoas</option>
 	<option value="AP">Amapá</option>

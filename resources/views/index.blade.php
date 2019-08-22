@@ -12,7 +12,21 @@
                 @csrf
                 <div class="form-group">
                     <label for="selectFile">Selecione o arquivo XML</label>
-                    <input type="file" name ="file" class="form-control-file" id="selectFile">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" name ="file" class="form-control-file" id="selectFile">
+                        </div>
+                        <div class="col-md-6 sendButton">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#emailModal">
+                            Enviar e-mail
+                        </button>
+                        <a type="button" href="{{ route('fan.formulario') }}" class="btn btn-primary">
+                            Cadastrar Torcedor
+                        </a>
+                        </div>
+                    </div>
+
                 </div>
                 <input type="submit" value="importar">
             </form>
@@ -59,3 +73,52 @@
     </div>
 </div>
 @endsection
+
+
+
+<!-- Modal formulario de envio de emails-->
+<div class="modal fade bd-example-modal-lg" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title">Enviar email para todos os torcedores cadastrados</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('fan.email') }}">
+            @csrf
+                
+                <div class="form-group row">
+                    <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nome" class="form-control" id="nome">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="assunto" class="col-sm-2 col-form-label">Assunto</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="assunto" class="form-control" id="assunto">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="mensagem" class="col-sm-2 col-form-label">Mensagem</label>
+                    <div class="col-sm-10">
+                        <textarea type="textarea" name="texto" class="form-control" rows="5" id="mensagem"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+

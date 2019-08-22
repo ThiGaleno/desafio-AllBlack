@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Fan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 function convertCheckboxValue($dado){
     if(isset($dado['ativo']) && $dado['ativo'] == 'on'){
@@ -34,6 +35,14 @@ function convertCheckboxValue($dado){
         $allFans[$i] = $dados;
     }
     return $allFans;
+}
+
+function selectAllEmails(){
+    $fans = Fan::all()->toArray();
+    foreach($fans as $fan){
+        $allEmails[] = $fan['email'];
+    }
+    return $allEmails;
 }
 
 class FanController extends Controller
@@ -93,6 +102,16 @@ class FanController extends Controller
                 Fan::create($fans);
             }
             return redirect()->route('index');
+    }
+
+    public function sendEmail(Request $request){
+        $dados = $request->all();
+        Mail::send('email', $dados, function($message){
+            $allEmails = selectAllEmails();
+            $message->from('allblacksdesafiocontato@gmail.com', 'Thiago');
+            $message->to($allEmails);
+        });
+        return 'email chegou';
     }
 
 }
