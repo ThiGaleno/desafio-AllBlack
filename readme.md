@@ -9,19 +9,20 @@
 -  1º Laragon
 -  2º Composer
 -  3º HeidiSQL
+-  Visual Studio Code (editor opcional)
 > Ao instalar o Composer, selecione o caminho do PHP dentro da pasta de instalação do Laragon, por padrão fica em C:/laragon/bin/php/ php 7.2 / php.exe
 # Clonando
 - Clone o projeto dentro da pasta C:/Laragon/www
-- Atualize o composer,  configure o arquivo .ENV e gere uma CHAVE
+- Atualizar as dependencias com o composer,  gerar e configurar o arquivo .ENV e gerar uma KEY (chave)
 ```
 Composer Update 
 ```
 ```
-Php artisan generate:key
+Php artisan key:generate
 ```
 - DB_DATABASE=allblacks
 - DB_USERNAME=root
-- DB_PASSWORD=
+- DB_PASSWORD=1234
 
 - MAIL_DRIVER=smtp
 - MAIL_HOST=smtp.gmail.com
@@ -32,10 +33,11 @@ Php artisan generate:key
 
 ## Rodando o projeto
 - Abra o Laragon e inicie-o
-- Abra o HeidiSQL,, crie um DB com nome allblacks
+- Abra o HeidiSQL, defina a senha configurada no arquivo .ENV neste caso a senha é: 1234.
+- Crie um DB com nome allblacks
 - Dentro da pasta do projeto rode o comando do artisan para criação das tabelas
 ```
 Php artisan migrate
 ```
-- Inicie o servidor, baixe o arquivo XML para utilizar e preencher o banco
+- Inicie o servidor, baixe o arquivo XML para utilizar e preencher o banco de dados
  [Arquivo XML]( https://raw.githubusercontent.com/p21sistemas/skeleton21/master/clientes.xml)
