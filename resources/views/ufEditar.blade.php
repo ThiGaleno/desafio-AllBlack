@@ -1,4 +1,3 @@
-
 <option value="AC" {{ $dados->uf == 'AC' ? 'selected="selected"' : '' }}>Acre</option> 
 <option value="AL" {{ $dados->uf == 'AL' ? 'selected="selected"' : '' }}>Alagoas</option> 
 <option value="AP" {{ $dados->uf == 'AP' ? 'selected="selected"' : '' }}>Amapá</option> 

@@ -50,7 +50,7 @@ class FanController extends Controller
     
     public function index()
     {
-        $dados = Fan::all();
+        $dados = Fan::paginate(20);
         return view('index', compact('dados'));
     }
 

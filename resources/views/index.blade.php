@@ -17,21 +17,24 @@
                         <div class="col-md-6">
                             <input type="file" name ="file" class="form-control-file" id="selectFile">
                         </div>
-                        <div class="col-md-6 sendButton">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#emailModal">
-                            Enviar e-mail
+                        <div class="col-md-6">
+                        <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#emailModal">
+                            Enviar Email <i class="fas fa-paper-plane"></i>
                         </button>
-                        <a type="button" href="{{ route('fan.formulario') }}" class="btn btn-primary">
-                            Cadastrar Torcedor
+                        <a type="button" href="{{ route('fan.formulario') }}" class="btn btn-lg btn-primary">
+                            Cadastrar <i class="fas fa-plus"></i>
                         </a>
                         </div>
                     </div>
 
                 </div>
                 <input type="submit" value="importar">
+                
             </form>
         </div>
-
+        <div class="row">
+            {{ $dados->links() }}
+        </div>
         <table class="table table-sm table-dark">
             <thead>
                 <tr>
@@ -60,16 +63,26 @@
                     <td>{{$dado->uf}}</td>
                     <td>{{$dado->telefone}}</td>
                     <td>{{$dado->email}}</td>
-                    <td>{{$dado->ativo}}</td>
                     <td>
-                        <a class="btn  btn-light text-dark" href="{{ route('fan.formulario',$dado->id) }}">E</a>
-                        <a class="btn  btn-danger text-light" href="{{ route('fan.delete',$dado->id) }}">X</a>
+                        @if($dado->ativo == '1')
+                        <i class="fas fa-check fa-lg text-success"></i>
+                        @else
+                        <i class="fas fa-times fa-lg text-danger"></i>
+                        @endif
+                    </td>
+                    <td>
+                        <a class="btn btn-block btn-sm btn-light text-dark" href="{{ route('fan.formulario',$dado->id) }}"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-block btn-sm btn-danger text-light" href="{{ route('fan.delete',$dado->id) }}"> <i class="fas fa-trash-alt"></i></a>
+                        
                     </td>
                     
                 </tr>
             @endforeach
             </tbody>
         </table>
+        <div class="row">
+            {{ $dados->links() }}
+        </div>
     </div>
 </div>
 @endsection
