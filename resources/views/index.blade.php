@@ -7,34 +7,37 @@
 <div class="panel panel-primary">
     <div class="card">
         <div class="card-header">                
-            <h1>Nome da aplicação</h1>
-            <form method="POST" enctype="multipart/form-data" action="{{ route('fan.extract') }}">
-                @csrf
-                <div class="form-group">
-                    <label for="selectFile">Selecione o arquivo XML</label>
+            <h1>FanSy</h1>
+            
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="file" name ="file" class="form-control-file" id="selectFile">
-                        </div>
-                        <div class="col-md-6">
-                        <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#emailModal">
-                            Enviar Email <i class="fas fa-paper-plane"></i>
-                        </button>
-                        <a type="button" href="{{ route('fan.formulario') }}" class="btn btn-lg btn-primary">
-                            Cadastrar <i class="fas fa-plus"></i>
-                        </a>
-                        </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="">
+                        <form class="form-inline" method="POST" enctype="multipart/form-data" action="{{ route('fan.extract') }}">
+                        @csrf
+                            <input class="btn btn-light"type="file" name ="file" class="form-control-file" id="selectFile">
+                            <input class="btn btn-primary" type="submit" value="importar">
+                        </form>
                     </div>
-
                 </div>
-                <input type="submit" value="importar">
-                
-            </form>
+
+                <div class="col-md-5 text-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#emailModal">
+                        Enviar Email <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <a type="button" href="{{ route('fan.formulario') }}" class="btn btn-primary">
+                        Cadastrar <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <form class="form-inline">   
+                        <input type="text" class="form-control" placeholder="Pesquisar">
+                        <input class="btn btn-primary" type="submit" value="Pesquisar">
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            {{ $dados->links() }}
-        </div>
+        
         <table class="table table-sm table-dark">
             <thead>
                 <tr>
@@ -71,8 +74,16 @@
                         @endif
                     </td>
                     <td>
-                        <a class="btn btn-block btn-sm btn-light text-dark" href="{{ route('fan.formulario',$dado->id) }}"><i class="fas fa-pencil-alt"></i></a>
-                        <a class="btn btn-block btn-sm btn-danger text-light" href="{{ route('fan.delete',$dado->id) }}"> <i class="fas fa-trash-alt"></i></a>
+                        <a  class="btn btn-block btn-sm btn-light text-dark" 
+                            href="{{ route('fan.formulario',$dado->id) }}">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        
+                        <a  class="btn btn-block btn-sm btn-danger text-light" 
+                            onclick="return confirm('Deseja realmente excluir?')" 
+                            href="{{ route('fan.delete',$dado->id) }}"> 
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                         
                     </td>
                     
@@ -87,7 +98,11 @@
 </div>
 @endsection
 
-
+@if(isset($emailSuccess))
+<script>
+    alert({{ $emailSucess }});
+</script>
+@endif
 
 <!-- Modal formulario de envio de emails-->
 <div class="modal fade bd-example-modal-lg" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -132,6 +147,3 @@
     </div>
   </div>
 </div>
-
-
-

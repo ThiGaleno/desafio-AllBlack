@@ -68,5 +68,6 @@
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Confirmar</button>
   <button class="btn btn-dark text-light" onClick="window.history.back()">Voltar</button>
+  <button type="submit" class="btn btn-primary">Confirmar</button>
+  

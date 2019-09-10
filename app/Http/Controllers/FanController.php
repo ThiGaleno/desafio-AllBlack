@@ -45,6 +45,10 @@ function selectAllEmails(){
     return $allEmails;
 }
 
+function getFormEmail(){
+    
+}
+
 class FanController extends Controller
 {
     
@@ -106,12 +110,15 @@ class FanController extends Controller
 
     public function sendEmail(Request $request){
         $dados = $request->all();
-        Mail::send('email', $dados, function($message){
-            $allEmails = selectAllEmails();
-            $message->from('allblacksdesafiocontato@gmail.com', 'Thiago');
+        
+        //metodo send recebe 3 parametros, view q renderiza o email, array, funçao
+        Mail::send('email', $dados, function($message) use ($dados){
+            $allEmails = ['thiagogaleno1301@hotmail.com']; //selectAllEmails();
+            $message->from('allblacksdesafiocontato@gmail.com', $dados['nome']);
             $message->to($allEmails);
+            $message->subject($dados['assunto']);
         });
-        return 'email chegou';
+        return 'email enviado com sucesso! Agora clique em voltar pois essa parte ainda nao foi implementada.';
     }
 
 }
