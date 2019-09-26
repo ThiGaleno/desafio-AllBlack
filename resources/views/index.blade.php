@@ -1,6 +1,6 @@
 @extends('template.main')
 
-@section('title', 'Bom dia campeão')
+@section('title', 'Fansy - Página Inicial')
 
 @section('content')
 
@@ -79,12 +79,11 @@
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         
-                        <a  class="btn btn-block btn-sm btn-danger text-light" 
-                            onclick="return confirm('Deseja realmente excluir?')" 
-                            href="{{ route('fan.delete',$dado->id) }}"> 
+                        <button  name="{{ $dado->nome }}" id="{{ $dado->id }}"
+                            data-toggle="modal" data-target="#confirmDelete"
+                            class="btn btn-block btn-sm btn-danger text-light view-data"> 
                             <i class="fas fa-trash-alt"></i>
-                        </a>
-                        
+                        </button>
                     </td>
                     
                 </tr>
@@ -144,6 +143,24 @@
                 </div>
             </form>
         </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Confirmar exclusão -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir <span id="modalBody"></span>?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+        <a id="idEditModal" href="#" class="btn btn-danger">Excluir</a>
+      </div>
     </div>
   </div>
 </div>

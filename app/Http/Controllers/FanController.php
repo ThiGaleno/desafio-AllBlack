@@ -45,10 +45,6 @@ function selectAllEmails(){
     return $allEmails;
 }
 
-function getFormEmail(){
-    
-}
-
 class FanController extends Controller
 {
     
@@ -119,6 +115,10 @@ class FanController extends Controller
             $message->subject($dados['assunto']);
         });
         return 'email enviado com sucesso! Agora clique em voltar pois essa parte ainda nao foi implementada.';
+    }
+
+    public function search(Request $request){
+        
     }
 
 }
